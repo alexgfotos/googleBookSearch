@@ -15,7 +15,23 @@ module.exports = function(sequelize, DataTypes) {
     synopsis: {
       type: DataTypes.TEXT,
     },
+    image: {
+      type: DataTypes.TEXT,
+    },
+    link: {
+      type: DataTypes.TEXT,
+    },
   });
+
+  Book.associate = function (models) {
+    
+    Book.belongsTo(models.Author, {
+        foreignKey: {
+            allowNull: true
+        }
+    });
+
+}
 
   return Book;
 };
