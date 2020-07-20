@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { Container, Grid, Paper, Typography } from '@material-ui/core';
 import axios from 'axios'
-import Image from 'material-ui-image'
 import { ResultList } from './ResultList';
 
 
@@ -32,8 +31,8 @@ export default function BasicTextFields() {
     }
 
     function searchBook(searchTerm) {
-        const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE"
-        const result = axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`).then(result => {
+        const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE";
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`).then(result => {
             console.log(result)
             setBooks(result.data.items)
             console.log(books)
@@ -51,9 +50,9 @@ export default function BasicTextFields() {
         <Paper >
             <Container >
                 <Box >
-                    <Grid container spacing={2} direction="column" justify="center" alignItems="center" maxWidth="200">
+                    <Grid container spacing={2} direction="column" alignItems="center" maxWidth="200">
                         <form className={classes.root} noValidate autoComplete="off">
-                            <Grid item xs={12}>
+                            <Grid item xs={12} justify="center">
                                 <TextField
                                     style={{ marginTop: "10px" }, { width: "90%" }}
                                     onChange={(event) => {
@@ -64,7 +63,7 @@ export default function BasicTextFields() {
                                     variant="outlined" />
                             </Grid>
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12 } justify="center">
                                 <Button
                                     style={{ marginBottom: "10px" }, { width: "90%" }}
                                     size='large'
@@ -75,15 +74,12 @@ export default function BasicTextFields() {
                                     Search!
                     </Button>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant="h4">
-                                    Results:
-                                </Typography>
-                                <ResultList results={books} />
-                            </Grid>
-
                         </form>
                     </Grid>
+                    <Typography variant="h4">
+                                    Results:
+                                </Typography>
+                    <ResultList results={books} />
                 </Box>
             </Container>
         </Paper>
