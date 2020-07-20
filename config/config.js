@@ -9,7 +9,7 @@ module.exports={
     "test": {
       "username": "root",
       "password": process.env.PASSWORD,
-      "database": "fullstack",
+      "database": "fullstack_test",
       "host": "127.0.0.1",
       "dialect": "mysql"
     },
