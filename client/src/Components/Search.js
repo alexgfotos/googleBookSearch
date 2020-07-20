@@ -25,7 +25,7 @@ export default function BasicTextFields() {
     const [searchTerm, setSearchTerm] = useState("")
     const [displayState, setDisplayState] = useState(false)
     const classes = useStyles();
-    const books = []
+    const [books, setBooks] = useState([])
 
     function renderResults() {
         const renderedResults = `<img src=${books[0].volumeInfo.imageLinks.thumbnail}></img>`
@@ -35,18 +35,16 @@ export default function BasicTextFields() {
         const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE"
         const result = axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`).then(result => {
             console.log(result)
-            books.push(result.data.items)
+            setBooks(result.data.items)
             console.log(books)
             renderResults()
         }).catch(err => {
         })
-        // console.log(result)
-        // book.push(result.data.items)
-        // console.log(book)
+        
     }
 
     // useEffect(() => {
-    //     setDisplayState(true)
+    //     searchBook("potter")
     // }, [books])
 
     return (
