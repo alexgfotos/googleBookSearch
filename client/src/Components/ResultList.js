@@ -1,37 +1,63 @@
 import React from 'react'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Image from 'material-ui-image'
-import { Typography, ListItemText } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography, ListItemText} from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
+import Link from '@material-ui/core/Link';
+
+const useStyles = makeStyles((theme) => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
 
 export const ResultList = (props) => {
+
+    const preventDefault = (event) => event.preventDefault();
+    const classes = useStyles();
     return (
         <div>
             {props.results.length ? (
                 <List>
                     {props.results.map(result => (
 
-                        <ListItem>
+                        <ListItem key={result.id}>
                             {/* <Image src= {result.volumeInfo.imageLinks.thumbnail}> 
                             </Image> */}
                             <ListItemText
                                 primary={
                                     <React.Fragment>
-                                        <Typography variant= "h5">
-                                        {result.volumeInfo.title}
-              </Typography>
+                                        <img src={result.volumeInfo.imageLinks.thumbnail}></img>
+                                        <Typography variant="h5">
+                                        <Link href={result.selfLink}>
+                                        
+                                            {result.volumeInfo.title}
+                                            </Link>
+                                            <Button
+                                                variant="outlined"
+                                                color="primary"
+                                                size="small"
+                                                className={classes.button}
+                                                startIcon={<SaveIcon />}
+                                                onClick={() => { alert('clicked') }}
+                                            >
+                                                SAVE
+                                            </Button>
+                                        </Typography>
                                     </React.Fragment>
-                            }
+                                }
                                 secondary={
                                     <React.Fragment>
                                         <Typography
-                                            variant="h6"                                           
+                                            variant="h6"
                                         >
-                                            {result.volumeInfo.authors}
-              </Typography> 
-              <Typography>
-                  {result.volumeInfo.description}
-                  </Typography>                                      
+                                            {result.volumeInfo.authors}, published {result.volumeInfo.publishedDate}
+                                        </Typography>
+                                        <Typography variant="caption">
+                                        
+                                            {result.volumeInfo.description}
+                                        </Typography>
                                     </React.Fragment>
                                 }
                             />

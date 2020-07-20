@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom"
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -22,13 +21,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BasicTextFields() {
     const [searchTerm, setSearchTerm] = useState("")
-    const [displayState, setDisplayState] = useState(false)
     const classes = useStyles();
     const [books, setBooks] = useState([])
 
-    function renderResults() {
-        const renderedResults = `<img src=${books[0].volumeInfo.imageLinks.thumbnail}></img>`
-    }
+    
 
     function searchBook(searchTerm) {
         const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE";
@@ -36,7 +32,6 @@ export default function BasicTextFields() {
             console.log(result)
             setBooks(result.data.items)
             console.log(books)
-            renderResults()
         }).catch(err => {
         })
         
@@ -50,9 +45,9 @@ export default function BasicTextFields() {
         <Paper >
             <Container >
                 <Box >
-                    <Grid container spacing={2} direction="column" alignItems="center" maxWidth="200">
-                        <form className={classes.root} noValidate autoComplete="off">
-                            <Grid item xs={12} justify="center">
+                    <Grid container spacing={2} direction="column" alignItems="center" >
+                        <form className={classes.root} noValidate autoComplete="off" >
+                            <Grid item xs={12}>
                                 <TextField
                                     style={{ marginTop: "10px" }, { width: "90%" }}
                                     onChange={(event) => {
@@ -60,10 +55,13 @@ export default function BasicTextFields() {
                                     }}
                                     id="outlined-basic"
                                     label="Search here..."
-                                    variant="outlined" />
+                                    variant="outlined" 
+
+                                    />
+                                    
                             </Grid>
 
-                            <Grid item xs={12 } justify="center">
+                            <Grid item xs={12 }>
                                 <Button
                                     style={{ marginBottom: "10px" }, { width: "90%" }}
                                     size='large'
