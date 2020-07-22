@@ -28,7 +28,7 @@ export default function BasicTextFields() {
 
     function searchBook(searchTerm) {
         // const key= process.env.REACT_APP_GOOGLE_API_KEY
-        const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE";
+        const key = "AIzaSyDbtesBTBQ3r6Y3i01WHeoXqEoYdSO8jOE";
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`).then(result => {
             console.log(result)
             setBooks(result.data.items)
@@ -38,9 +38,6 @@ export default function BasicTextFields() {
         
     }
 
-    // useEffect(() => {
-    //     searchBook("potter")
-    // }, [books])
 
     return (
         <Paper >

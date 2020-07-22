@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography, ListItemText} from '@material-ui/core';
+import { Button, Typography, ListItemText } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import Link from '@material-ui/core/Link';
 import API from '../utils/API';
@@ -14,13 +14,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ResultList = (props) => {
-
+    const [thumbnail, setThumbnail] = useState("https://mineblocks.com/1/wiki/images/f/f3/Book.png")
     const handleBookSubmit = (result) => {
-        
-        API.Book.create({title: result.volumeInfo.title, author: result.volumeInfo.authors[0],})
-    
-       // window.location.reload(false)
-      }
+
+        API.Book.create({
+            title: result.volumeInfo.title,
+            author: result.volumeInfo.authors[0],
+            synopsis: result.volumeInfo.description,
+            image: result.volumeInfo.imageLinks.thumbnail,
+            link: result.selfLink
+        })
+
+        // window.location.reload(false)
+    }
+
 
     const preventDefault = (event) => event.preventDefault();
     const classes = useStyles();
@@ -36,11 +43,15 @@ export const ResultList = (props) => {
                             <ListItemText
                                 primary={
                                     <React.Fragment>
-                                        <img src={result.volumeInfo.imageLinks.thumbnail}></img>
+                                        {result.volumeInfo.imageLinks ? 
+                                        (<img src={result.volumeInfo.imageLinks.thumbnail}></img>) 
+                                        : (
+                                            <img src={thumbnail}></img>
+                                        )}
                                         <Typography variant="h5">
-                                        <Link href={result.selfLink}>
-                                        
-                                            {result.volumeInfo.title}
+                                            <Link href={result.volumeInfo.previewLink}>
+
+                                                {result.volumeInfo.title}
                                             </Link>
                                             <Button
                                                 variant="outlined"
@@ -48,9 +59,9 @@ export const ResultList = (props) => {
                                                 size="small"
                                                 className={classes.button}
                                                 startIcon={<SaveIcon />}
-                                                onClick={() => { 
-                                                    alert("reading is fun! " + result.volumeInfo.authors)
-                                                    handleBookSubmit(result) 
+                                                onClick={() => {
+                                                    alert("reading is fun! Saved " + result.volumeInfo.title)
+                                                    handleBookSubmit(result)
                                                 }}
                                             >
                                                 SAVE
@@ -66,7 +77,7 @@ export const ResultList = (props) => {
                                             {result.volumeInfo.authors}, published {result.volumeInfo.publishedDate}
                                         </Typography>
                                         <Typography variant="caption">
-                                        
+
                                             {result.volumeInfo.description}
                                         </Typography>
                                     </React.Fragment>
