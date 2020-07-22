@@ -7,10 +7,9 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-    author: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      len: [1]
+    Author: {
+      type: DataTypes.TEXT,
+      allowNull: true
     },
     synopsis: {
       type: DataTypes.TEXT,
@@ -23,15 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
 
-  Book.associate = function (models) {
-    
-    Book.belongsTo(models.Author, {
-        foreignKey: {
-            allowNull: true
-        }
-    });
-
-}
-
+  
   return Book;
 };

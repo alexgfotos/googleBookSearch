@@ -48,7 +48,7 @@ function _update(id, entity, data){
 
 export default {
     
-    Books: {
+    Book: {
         getAll: function () {
             return _getAll("books");
         },

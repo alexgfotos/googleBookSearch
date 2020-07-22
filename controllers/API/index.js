@@ -1,7 +1,7 @@
 const router = require("express").Router();
 // Import our controllers
 const bookRoutes = require("./booksController.js");
-const authorRoutes = require("./booksController.js");
+const authorRoutes = require("./authorsController.js");
 
 
 // Hook up to the router

@@ -23,10 +23,11 @@ export default function BasicTextFields() {
     const [searchTerm, setSearchTerm] = useState("")
     const classes = useStyles();
     const [books, setBooks] = useState([])
-
+    
     
 
     function searchBook(searchTerm) {
+        // const key= process.env.REACT_APP_GOOGLE_API_KEY
         const key = "AIzaSyA309FWjrT_doAim2LjcNuo9dHZi1-F8jE";
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`).then(result => {
             console.log(result)
@@ -66,6 +67,9 @@ export default function BasicTextFields() {
                                     style={{ marginBottom: "10px" }, { width: "90%" }}
                                     size='large'
                                     variant="outlined"
+                                    onSubmit={() => {
+                                        searchBook(searchTerm)
+                                    }}
                                     onClick={() => {
                                         searchBook(searchTerm)
                                     }}>

@@ -18,10 +18,10 @@ export default function Links() {
 
   return (
     <Typography className={classes.root}>
-      <Link href="#" onClick={preventDefault} color="inherit">
+      <Link href="/search"  color="inherit">
         {'SEARCH'}
       </Link>
-      <Link href="#" onClick={preventDefault} color="inherit">
+      <Link href="/saved"  color="inherit">
         {'SAVED BOOKS'}
       </Link>
     </Typography>

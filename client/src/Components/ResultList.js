@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Typography, ListItemText} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import Link from '@material-ui/core/Link';
+import API from '../utils/API';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -13,6 +14,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ResultList = (props) => {
+
+    const handleBookSubmit = (result) => {
+        
+        API.Book.create({title: result.volumeInfo.title, author: result.volumeInfo.authors[0],})
+    
+       // window.location.reload(false)
+      }
 
     const preventDefault = (event) => event.preventDefault();
     const classes = useStyles();
@@ -40,7 +48,10 @@ export const ResultList = (props) => {
                                                 size="small"
                                                 className={classes.button}
                                                 startIcon={<SaveIcon />}
-                                                onClick={() => { alert('clicked') }}
+                                                onClick={() => { 
+                                                    alert("reading is fun! " + result.volumeInfo.authors)
+                                                    handleBookSubmit(result) 
+                                                }}
                                             >
                                                 SAVE
                                             </Button>
