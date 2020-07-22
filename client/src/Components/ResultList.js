@@ -22,7 +22,7 @@ export const ResultList = (props) => {
             author: result.volumeInfo.authors[0],
             synopsis: result.volumeInfo.description,
             image: result.volumeInfo.imageLinks.thumbnail,
-            link: result.selfLink
+            link: result.volumeInfo.previewLink
         })
 
         // window.location.reload(false)
