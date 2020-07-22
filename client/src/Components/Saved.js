@@ -17,89 +17,84 @@ const useStyles = makeStyles((theme) => ({
 function Saved() {
     const [savedBooks, setSavedBooks] = useState([])
 
-    // async function getBooks() {
 
-    //     const res = await API.Book.get().then(res => {
-    //         setSavedBooks(res)
-    //     console.log("books " + savedBooks)
-    //     }).catch(err => {
-    //   })
-        
-    // }
+    function deleteBook(id) {
+        axios.delete(`/api/books/${id}`).then(() => {
+            window.location.reload();
+        })
 
+    }
 
-    // window.location.reload(false)
+    useEffect(() => {
+        async function getBooks() {
+            const spec = await axios.get(`/api/books`)
+            console.log(spec);
 
+            setSavedBooks(spec.data);
 
-useEffect(() => {
-    async function getBooks() {
-        const spec = await axios.get(`/api/books`)
-        console.log(spec);
-  
-        setSavedBooks(spec.data); 
-  
-      }
-      getBooks()
-}, [])
+        }
+        getBooks()
+    }, [])
 
-const preventDefault = (event) => event.preventDefault();
-const classes = useStyles();
-return (
-    <div>
-        {savedBooks.length ? (
-            <List>
-                {savedBooks.map(Book => (
+    const preventDefault = (event) => event.preventDefault();
+    const classes = useStyles();
+    return (
+        <div>
+            {savedBooks.length ? (
+                <List>
+                    {savedBooks.map(Book => (
 
-                    <ListItem key={Book.id}>
-                        {/* <Image src= {Book.volumeInfo.imageLinks.thumbnail}> 
+                        <ListItem key={Book.id}>
+                            {/* <Image src= {Book.volumeInfo.imageLinks.thumbnail}> 
                             </Image> */}
-                        <ListItemText
-                            primary={
-                                <React.Fragment>
-                                    <img src={Book.image}></img>
-                                    <Typography variant="h5">
-                                        <Link href={Book.link}>
+                            <ListItemText
+                                primary={
+                                    <React.Fragment>
+                                        <img src={Book.image}></img>
+                                        <Typography variant="h5">
+                                            <Link href={Book.link}>
 
-                                            {Book.title}
-                                        </Link>
-                                        <Button
-                                            variant="outlined"
-                                            color="primary"
-                                            size="small"
-                                            className={classes.button}
-                                            startIcon={<DeleteIcon />}
-                                            onClick={() => {
-                                                alert("reading is fun! " + Book.author)
-                                                // handleBookSubmit(Book) 
-                                            }}
-                                        >
-                                            DELETE
+                                                {Book.title}
+                                            </Link>
+                                            <Button
+                                                variant="outlined"
+                                                color="primary"
+                                                size="small"
+                                                className={classes.button}
+                                                startIcon={<DeleteIcon />}
+                                                onClick={() => {
+                                                    deleteBook(Book.id)
+                                                    alert("Deleted " + Book.title)
+                                                    // handleBookSubmit(Book) 
+                                                }}
+                                            >
+                                                DELETE
                                             </Button>
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                            secondary={
-                                <React.Fragment>
-                                    <Typography
-                                        variant="h6"
-                                    >
-                                        {Book.author}
-                                    </Typography>
-                                    <Typography variant="caption">
+                                        </Typography>
+                                    </React.Fragment>
+                                }
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            variant="h6"
+                                        >
+                                            {Book.author}
+                                        </Typography>
+                                        <Typography variant="caption">
 
-                                        {Book.synopsis}
-                                    </Typography>
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
-                ))}
-            </List>
-        ) : (
-                <h3>No Books to Display</h3>
-            )}
-    </div>
-)
+                                            {Book.synopsis}
+                                        </Typography>
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                    ))}
+                </List>
+            ) : (
+                    <h3>No Books to Display</h3>
+                )}
+        </div>
+    )
 }
 
 export default Saved
